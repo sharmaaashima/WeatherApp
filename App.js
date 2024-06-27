@@ -1,12 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import Navigation from './src/navigation/stackNavigation';
+
+
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hello Team Weather App</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+    <>
+      <Navigation />
+    </>
   );
 }
 
@@ -16,5 +20,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-});
+})
