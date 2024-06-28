@@ -5,10 +5,10 @@ import CustomButton from "../components/CustomButton";
 import Loader from "../components/loader";
 import { containerStyle } from "../styles";
 
-const WelcomeImage = require("../../assets/img/welcome.jpg");
+const WelcomeImage = require("../../assets/img/welcome3.jpg");
 
 const Welcome = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -19,31 +19,28 @@ const Welcome = () => {
           style={[containerStyle.container, {}]}>
           <Text
             style={{
-              fontSize: 45,
+              fontSize: 40,
               fontWeight: "bold",
               color: "black",
               fontFamily: "Inter-Black",
-              backgroundColor: "#f5e000",
-              paddingHorizontal: 10,
-              borderRadius: 15,
+             
             }}>
             WEATHER
           </Text>
           <Text
             style={{
-              fontSize: 25,
+              textAlign: "white",
+              fontSize: 30,
               fontWeight: "bold",
               color: "black",
-              fontFamily: "Inter-Black",
-              borderColor: "#f5e000",
-              borderWidth: 5,
-              padding: 10,
-              borderRadius: 15,
+              fontFamily: "Inter-black",
+              
+              textAlign: "center",
             }}>
             APP
           </Text>
 
-          <View style={{ marginTop: 250 }}>
+          <View style={{ marginTop: 400}}>
             <CustomButton title={"Get Started"}></CustomButton>
           </View>
         </ImageBackground>

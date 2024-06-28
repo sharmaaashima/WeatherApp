@@ -11,7 +11,7 @@ const Loader = () => {
     <>
       <View style={containerStyle.container}>
         <ActivityIndicator
-          size={"large"}
+          size={"Large"}
           animating={true}
           theme={{ colors: { primary: COLORS.INDICATOR_COLOR } }}
         />
