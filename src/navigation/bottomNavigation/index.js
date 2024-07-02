@@ -1,23 +1,23 @@
 import AnDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
-import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { useState } from "react";
 import DetailScreen from "../../pages/DetailScreen";
 import HomeScreen from './../../pages/HomeScreen';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTabNavigation = () => {
 
   return (
-    <NavigationContainer>
+
       <Tab.Navigator
         activeColor="black"
         inactiveColor="#3e2465"
         barStyle={{
-          backgroundColor: null,
+          backgroundColor:"#bf80ff",
         }}>
         <Tab.Screen
           name="Feed"
@@ -58,7 +58,6 @@ const BottomTabNavigation = () => {
           }}
         />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 };
 
