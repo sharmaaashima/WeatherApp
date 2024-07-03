@@ -7,7 +7,7 @@ import { Badge } from "react-native-paper";
 import CustomCard from "../components/CustomCard";
 
 const HomeScreen = () => {
-  const rainImage = require("../../assets/img/rain.jpg");
+  const rainImage = require("../../assets/img/sun.png");
   return (
     <SafeAreaView
       style={{
@@ -25,7 +25,7 @@ const HomeScreen = () => {
             marginTop: -20,
           }}
         >
-          Dausya, Hoshiarpur
+          Dasuya, Hoshiarpur
         </Text>
         <View>
           <Text
@@ -99,11 +99,13 @@ const HomeScreen = () => {
           </View>
         </View>
         <CustomCard
+        
+        
           image={rainImage}
           title={"Rain fall"}
           subtitle={""}
           percentage={100}
-        />
+         />
         <CustomCard
           image={rainImage}
           title={"Humidity"}

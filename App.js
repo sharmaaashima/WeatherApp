@@ -1,10 +1,12 @@
 import { StyleSheet, } from 'react-native';
 import Navigation from './src/navigation/stackNavigation';
+import DetailScreen from './src/pages/DetailScreen';
 
 export default function App() {
   return (
     <>
-      <Navigation />
+     {/* <Navigation /> */}
+      <DetailScreen/>
     </>
   );
 }

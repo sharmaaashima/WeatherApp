@@ -5,13 +5,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { COLORS } from "../constants/Colors";
 
 const TopBar = ({ navigation }) => {
-  const _goBack = () => {
+  const _goBack = () => {console.log("went back")
     navigation.navigate("ComponentNavigation");
   };
+  
+  
 
-  const _handleSearch = () => console.log("Searching");
-
-  const _handleMore = () => console.log("Shown more");
 
   return (
     <SafeAreaProvider>
@@ -21,9 +20,10 @@ const TopBar = ({ navigation }) => {
           backgroundColor: COLORS.PRIMARY,
         }}
       >
-        <Appbar.Action icon={"magnify"} onPress={_handleMore} />
-        <Appbar.Action icon="menu" onPress={_handleSearch} />
-      </Appbar.Header>
+       
+      <Appbar.BackAction onPress={_goBack} />
+      <Appbar.Content title="Next 7 days" />
+        </Appbar.Header>
     </SafeAreaProvider>
   );
 };
