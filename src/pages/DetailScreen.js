@@ -1,68 +1,67 @@
-import { StyleSheet,Image } from "react-native";
-import React from "react";
-import TopBar from "../components/TopBar";
+import { Image, StyleSheet, View } from "react-native";
+import React, { useEffect, useState } from "react";
+
 import { COLORS } from "../constants/Colors";
-import { SafeAreaView } from "react-native";
 import CustomCard from "../components/CustomCard";
+import { SafeAreaView } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import { Text } from "react-native-paper";
+import TopBar from "../components/TopBar";
 
-const DetailScreen = () => {
+const DetailScreen = ({ navigation }) => {
   const rainImage = require("../../assets/img/sun.png");
-  return (
-   
-    <SafeAreaView
-    style={{
-      backgroundColor: COLORS.PRIMARY,
-      height: "100%",
-      marginTop: 7,
-    }}
-  >
-  
-  <TopBar/>
-  
-   <CustomCard
-          image={rainImage}
-          title={"Tomarrow"}
-          subtitle={""}
-          percentage={30}
-          />
 
-      <CustomCard
-      
-         image={rainImage}
-          title={"Sunday"}
-          subtitle={""}
-          percentage={25}
-         />
-        <CustomCard
-          image={rainImage}
-          title={"Monday"}
-          subtitle={""}
-          percentage={22}
-        />
-        <CustomCard
-           image={rainImage}
-          title={"Tuesday"}
-          subtitle={""}
-          percentage={50}
-         />
-        <CustomCard
-          image={rainImage}
-          title={"Wednesday"}
-          subtitle={""}
-          percentage={97}
-        />
-        <CustomCard
-          title={"Thrusday"}
-          subtitle={""}
-          percentage={40}
-          image={rainImage}
-        />
-     
-        </SafeAreaView>
-  )
-}
+  const [remainingDays, setRemainingDays] = useState([]);
+
+  useEffect(() => {
+    const date = new Date();
+
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const currentDayIndex = date.getDay();
+
+    const daysLeft = ["Tomorrow"];
+    for (let i = 1; i < daysOfWeek.length - 1; i++) {
+      daysLeft.push(daysOfWeek[(currentDayIndex + i) % 7]);
+    }
+    setRemainingDays(daysLeft);
+  }, []);
+
+  return (
+    <SafeAreaView
+      style={{
+        backgroundColor: COLORS.PRIMARY,
+        height: "100%",
+      }}>
+      <TopBar
+        navigation={navigation}
+        title={"Next 7 Days"}
+        leftIcon={"arrow-left"}
+      />
+      <ScrollView>
+        {remainingDays.map((day, index) => (
+          <View key={index}>
+            <CustomCard
+              image={rainImage}
+              title={day}
+              subtitle={""}
+              percentage={30}
+              expandale={true}
+            />
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
 export default DetailScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

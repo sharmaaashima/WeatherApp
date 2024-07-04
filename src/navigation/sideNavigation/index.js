@@ -1,9 +1,14 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+
+import AnDesign from "react-native-vector-icons/AntDesign";
+import { COLORS } from "../../constants/Colors";
+import DetailScreen from "../../pages/DetailScreen";
+import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 import HomeScreen from "./../../pages/HomeScreen";
-import DetailScreen from "./../../pages/DetailScreen";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Profile from "../../pages/Profile";
+import React from "react";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const SideNavigation = () => {
   const Drawer = createDrawerNavigator();
@@ -11,11 +16,41 @@ const SideNavigation = () => {
     <Drawer.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-    >
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Detail" component={DetailScreen} />
-      <Drawer.Screen name="Profile" component={Profile} />
+        drawerPosition: "right",
+        drawerActiveBackgroundColor: COLORS.PRIMARY,
+      }}>
+      <Drawer.Screen
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <AnDesign name="home" color={color} size={26} />
+          ),
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <FontAwesome6
+              onPre
+              name="temperature-quarter"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+        name="Detail"
+        component={DetailScreen}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
+        }}
+        name="Profile"
+        component={Profile}
+      />
     </Drawer.Navigator>
   );
 };
