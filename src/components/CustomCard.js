@@ -25,7 +25,8 @@ const CustomCard = ({ image, subtitle, title, percentage }) => (
       )}
       right={(props) => (
         <Text style={{ fontSize: 15, fontWeight: 600, marginRight: 40 }}>
-          {percentage} %
+          {percentage}
+          {title !== "Wind" ? "%" : ""}
         </Text>
       )}
     />
