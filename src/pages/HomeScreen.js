@@ -104,7 +104,6 @@ const HomeScreen = ({ navigation }) => {
       </View>
     );
   }
-  console.log("currentLocationCity", currentLocationCity);
   return (
     <SafeAreaView
       style={{

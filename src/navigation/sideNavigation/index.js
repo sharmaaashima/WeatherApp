@@ -39,7 +39,7 @@ const SideNavigation = () => {
             />
           ),
         }}
-        name="Detail"
+        name="Forcast"
         component={DetailScreen}
       />
       <Drawer.Screen
@@ -48,7 +48,7 @@ const SideNavigation = () => {
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
         }}
-        name="Profile"
+        name="About"
         component={Profile}
       />
     </Drawer.Navigator>

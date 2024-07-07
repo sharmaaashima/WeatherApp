@@ -21,8 +21,6 @@ const DetailScreen = ({ navigation }) => {
 
   const [remainingDays, setRemainingDays] = useState([]);
 
-  console.log("remainingDays", remainingDays);
-
   useEffect(() => {
     const date = new Date();
 
@@ -47,8 +45,6 @@ const DetailScreen = ({ navigation }) => {
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState("");
 
-  console.log("weather", weather);
-
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
@@ -64,7 +60,7 @@ const DetailScreen = ({ navigation }) => {
     };
 
     fetchWeatherData();
-  }, []); // Trigger useEffect when 'city' prop changes
+  }, []);
 
   if (error) {
     return <Text style={styles.errorText}>{error}</Text>;
@@ -74,12 +70,10 @@ const DetailScreen = ({ navigation }) => {
     return <Text>Loading...</Text>;
   }
 
-  // Assuming 'weather.list' contains forecast data for every 3 hours
   const dailyForecasts = weather.list.filter(
     (forecast, index) => index % 8 === 0
-  ); // Adjust index if hourly data
+  );
 
-  console.log("dailyForecasts", dailyForecasts);
   const fetchCoordinates = async (apiKey) => {
     try {
       const response = await axios.get(
@@ -109,14 +103,6 @@ const DetailScreen = ({ navigation }) => {
     }
   };
 
-  console.log("weather", weather);
-
-  console.log(
-    "map",
-    weather?.list?.map((item, index) => {
-      item.clouds;
-    })
-  );
   return (
     <SafeAreaView
       style={{

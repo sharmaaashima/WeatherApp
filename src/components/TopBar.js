@@ -33,7 +33,6 @@ const TopBar = ({
     navigation.goBack();
   };
 
-  console.log("navigation", navigation);
   return (
     <SafeAreaProvider>
       <Appbar.Header

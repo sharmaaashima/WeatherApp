@@ -3,7 +3,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 
 const CustomButton = ({ title, navigation }) => {
-  console.log("handleClick", navigation);
   return (
     <View>
       <TouchableOpacity
@@ -16,11 +15,9 @@ const CustomButton = ({ title, navigation }) => {
           backgroundColor: "yellow",
           justifyContent: "center",
           borderRadius: 20,
-        }}
-      >
+        }}>
         <Text
-          style={{ textAlign: "center", fontWeight: "bold", color: "black" }}
-        >
+          style={{ textAlign: "center", fontWeight: "bold", color: "black" }}>
           {title}
         </Text>
       </TouchableOpacity>
