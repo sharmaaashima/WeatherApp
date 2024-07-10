@@ -8,7 +8,6 @@ import {
   Text,
   View,
 } from "react-native";
-import { GOOGLEMAP_API_KEY, WEATHER_API_KEY } from "../hook/hooks";
 import React, { useEffect, useState } from "react";
 
 import { Badge } from "react-native-paper";
@@ -17,6 +16,7 @@ import CustomCard from "../components/CustomCard";
 import Loader from "../components/loader";
 import { ScrollView } from "react-native-gesture-handler";
 import TopBar from "../components/TopBar";
+import { WEATHER_API_KEY } from "../hook/hooks";
 import axios from "axios";
 import moment from "moment-timezone";
 
@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
     try {
       const response = await axios.get(
         `https://api.openweathermap.org/data/2.5/weather?q=${
-          city ? city : "India"
+          city ? city : "Hoshiarpur"
         }&appid=${WEATHER_API_KEY}&units=metric`
       );
       setWeather(response.data);
@@ -55,6 +55,11 @@ const HomeScreen = ({ navigation }) => {
   };
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  console.log("location", location);
+  console.log("city", city);
+  console.log("current", currentLocationCity);
+  console.log("current", weather);
 
   useEffect(() => {
     (async () => {

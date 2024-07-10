@@ -44,7 +44,7 @@ const TopBar = ({
           <View
             style={{
               height: 40,
-              width: 390,
+              width: 330,
               backgroundColor: COLORS.CARD_COLOR,
               borderRadius: 50,
               paddingVertical: 20,
@@ -80,7 +80,7 @@ export default TopBar;
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    width: 300,
+    width: 250,
     padding: 10,
     color: "black",
     marginTop: -20,

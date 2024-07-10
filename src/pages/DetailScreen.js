@@ -1,155 +1,173 @@
-import { Image, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import {
+  Appbar,
+  Avatar,
+  Card,
+  List,
+  Paragraph,
+  Title,
+} from "react-native-paper";
 import React, { useEffect, useState } from "react";
 
 import { COLORS } from "../constants/Colors";
-import CustomCard from "../components/CustomCard";
-import { SafeAreaView } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Text } from "react-native-paper";
 import TopBar from "../components/TopBar";
 import { WEATHER_API_KEY } from "../hook/hooks";
 import axios from "axios";
 
-const DetailScreen = ({ navigation }) => {
-  const rainImage = require("../../assets/img/heavyRain.png");
-  const humidityImage = require("../../assets/img/humidity.png");
-  const windImage = require("../../assets/img/wind.png");
-  const sunImage = require("../../assets/img/sun.png");
-  const hazeImage = require("../../assets/img/haze.png");
-  const normalDayImage = require("../../assets/img/normalday.png");
-  const mist = require("../../assets/img/normalRain.png");
+const Details = ({ navigation }) => {
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [remainingDays, setRemainingDays] = useState([]);
-
-  useEffect(() => {
-    const date = new Date();
-
-    const daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const currentDayIndex = date.getDay();
-
-    const daysLeft = ["Tomorrow"];
-    for (let i = 1; i < daysOfWeek.length - 1; i++) {
-      daysLeft.push(daysOfWeek[(currentDayIndex + i) % 7]);
-    }
-    setRemainingDays(daysLeft);
-  }, []);
-
-  const [weather, setWeather] = useState(null);
-  const [error, setError] = useState("");
+  const LOCATION = "Hoshiarpur";
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       try {
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${"Punjab"}&appid=${WEATHER_API_KEY}&units=metric`
+        const currentWeatherResponse = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${LOCATION}&appid=${WEATHER_API_KEY}&units=metric`
         );
-        setWeather(response.data);
-        setError("");
-      } catch (err) {
-        setError("City not found");
-        setWeather(null);
+        const forecastResponse = await axios.get(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${LOCATION}&appid=${WEATHER_API_KEY}&units=metric`
+        );
+
+        setCurrentWeather({
+          temperature: `${currentWeatherResponse.data.main.temp}°C`,
+          condition: currentWeatherResponse.data.weather[0].main,
+          icon: getWeatherIcon(currentWeatherResponse.data.weather[0].icon),
+          location: currentWeatherResponse.data.name,
+        });
+
+        const forecastData = forecastResponse.data.list
+          .filter((_, index) => index % 8 === 0)
+          .map((item) => ({
+            day: new Date(item.dt_txt).toLocaleDateString("en-US", {
+              weekday: "long",
+            }),
+            temperature: `${item.main.temp}°C`,
+            condition: item.weather[0].main,
+            icon: getWeatherIcon(item.weather[0].icon),
+          }));
+
+        setForecast(forecastData);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
       }
     };
 
     fetchWeatherData();
   }, []);
 
-  if (error) {
-    return <Text style={styles.errorText}>{error}</Text>;
-  }
-
-  if (!weather) {
-    return <Text>Loading...</Text>;
-  }
-
-  const dailyForecasts = weather.list.filter(
-    (forecast, index) => index % 8 === 0
-  );
-
-  const fetchCoordinates = async (apiKey) => {
-    try {
-      const response = await axios.get(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${"Hoshiarpur"},&limit=1&appid=${apiKey}`
-      );
-      if (response.data.length > 0) {
-        return {
-          lat: response.data[0].lat,
-          lon: response.data[0].lon,
-        };
-      } else {
-        throw new Error("City not found");
-      }
-    } catch (err) {
-      throw new Error("City not found");
-    }
+  const getWeatherIcon = (icon) => {
+    const iconMapping = {
+      "01d": "weather-sunny",
+      "01n": "weather-night",
+      "02d": "weather-partly-cloudy",
+      "02n": "weather-night-partly-cloudy",
+      "03d": "weather-cloudy",
+      "03n": "weather-cloudy",
+      "04d": "weather-cloudy",
+      "04n": "weather-cloudy",
+      "09d": "weather-rainy",
+      "09n": "weather-rainy",
+      "10d": "weather-pouring",
+      "10n": "weather-pouring",
+      "11d": "weather-lightning",
+      "11n": "weather-lightning",
+      "13d": "weather-snowy",
+      "13n": "weather-snowy",
+      "50d": "weather-fog",
+      "50n": "weather-fog",
+    };
+    return iconMapping[icon] || "weather-cloudy";
   };
 
-  const fetchWeatherForecast = async (lat, lon, apiKey) => {
-    try {
-      const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${apiKey}`
-      );
-      return response.data;
-    } catch (err) {
-      throw new Error("Failed to fetch weather data");
-    }
-  };
+  if (loading) {
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView
       style={{
+        width: "100%",
+        height: "100",
         backgroundColor: COLORS.PRIMARY,
-        height: "100%",
       }}>
-      <TopBar
-        navigation={navigation}
-        title={"Next 7 Days"}
-        leftIcon={"arrow-left"}
-      />
-      <ScrollView>
-        {remainingDays.map((day, index) => (
-          <View key={index}>
-            <CustomCard
-              image={
-                weather.list.map((item) => item?.weather?.[0]?.main === "Rain")
-                  ? rainImage
-                  : weather.list.map(
-                      (item) => item?.weather?.[0]?.main === "clear"
-                    )
-                  ? sunImage
-                  : weather.list.map(
-                      (item) => item?.weather?.[0]?.main === "Haze"
-                    ) ||
-                    weather.list.map(
-                      (item) => item?.weather?.[0]?.main === "Clouds"
-                    )
-                  ? hazeImage
-                  : weather.list.map(
-                      (item) => item?.weather?.[0]?.main === "Mist"
-                    )
-                  ? mist
-                  : normalDayImage
-              }
-              title={day}
-              subtitle={""}
-              percentage={weather?.list?.map((item) => {
-                item.clouds?.all;
-              })}
-            />
-          </View>
-        ))}
-      </ScrollView>
+      <View>
+        <TopBar navigation={navigation} title="Forcast" leftIcon="arrow-left" />
+      </View>
+
+      <View style={styles.container}>
+        <ScrollView>
+          <Card style={styles.card}>
+            <Card.Content>
+              <Title>{currentWeather?.location}</Title>
+              <Paragraph>{currentWeather?.condition}</Paragraph>
+              <View style={styles.weatherInfo}>
+                <Avatar.Icon size={48} icon={currentWeather?.icon} />
+                <Title style={styles?.temperature}>
+                  {currentWeather?.temperature}
+                </Title>
+              </View>
+            </Card.Content>
+          </Card>
+
+          <List.Section
+            style={{
+              gap: 5,
+              paddingHorizontal: 20,
+            }}
+            title="5-Day Forecast">
+            {forecast.map((day, index) => (
+              <List.Item
+                style={{ elevation: 10 }}
+                key={index}
+                title={day.day}
+                description={`${day.temperature} - ${day.condition}`}
+                left={() => <Avatar.Icon size={40} icon={day.icon} s />}
+              />
+            ))}
+          </List.Section>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
-export default DetailScreen;
 
-const styles = StyleSheet.create({});
+export default Details;
+
+const styles = StyleSheet.create({
+  container: {
+    // flex: 1,
+    backgroundColor: COLORS.TOP_BAR_COLOR,
+    marginTop: 100,
+    marginHorizontal: 10,
+    height: "100%",
+  },
+  card: {
+    margin: 16,
+    backgroundColor: COLORS.PRIMARY,
+  },
+  weatherInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 8,
+  },
+  temperature: {
+    marginLeft: 16,
+    fontSize: 32,
+  },
+});
