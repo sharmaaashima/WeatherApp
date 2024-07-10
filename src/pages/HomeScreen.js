@@ -1,7 +1,6 @@
 import * as Location from "expo-location";
 
 import {
-  ActivityIndicator,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -13,7 +12,6 @@ import React, { useEffect, useState } from "react";
 import { Badge } from "react-native-paper";
 import { COLORS } from "../constants/Colors";
 import CustomCard from "../components/CustomCard";
-import Loader from "../components/loader";
 import { ScrollView } from "react-native-gesture-handler";
 import TopBar from "../components/TopBar";
 import { WEATHER_API_KEY } from "../hook/hooks";
@@ -102,13 +100,7 @@ const HomeScreen = ({ navigation }) => {
     );
   }
 
-  if (!location) {
-    return (
-      <View style={styles.container}>
-        <Loader />
-      </View>
-    );
-  }
+
   return (
     <SafeAreaView
       style={{

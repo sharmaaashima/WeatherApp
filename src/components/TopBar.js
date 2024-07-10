@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
-  Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -20,11 +18,7 @@ const TopBar = ({
   setCity,
   getWeather,
 }) => {
-  const [text, onChangeText] = useState("");
-  const [number, onChangeNumber] = useState("");
-  const _goBack = () => {
-    navigation.navigate("ComponentNavigation");
-  };
+
 
   const _handleMenu = () => {
     navigation.toggleDrawer();
@@ -84,7 +78,6 @@ const styles = StyleSheet.create({
     padding: 10,
     color: "black",
     marginTop: -20,
-    // backgroundColor: "blue",
     marginLeft: 30,
   },
 });

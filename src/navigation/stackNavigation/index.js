@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";

@@ -3,11 +3,9 @@ import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from "react-native";
 import {
-  Appbar,
   Avatar,
   Card,
   List,
@@ -151,7 +149,6 @@ export default Details;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: COLORS.TOP_BAR_COLOR,
     marginTop: 100,
     marginHorizontal: 10,

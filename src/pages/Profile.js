@@ -2,7 +2,7 @@ import * as ImagePicker from "expo-image-picker";
 
 import { Avatar, Button } from "react-native-paper";
 import {
-  Linking,
+  
   SafeAreaView,
   StyleSheet,
   Text,
@@ -83,9 +83,14 @@ const Profile = ({ navigation }) => {
         </View>
         <View style={{ marginTop: 20, alignItems: "center" }}>
           <Text>Teams Email ID's </Text>
+          <Text style={{ color: "blue" }}>aashimasharma164gmail.com</Text>
+          <Text style={{ color: "blue" }}>bhardwajpreet60@gmail.com</Text>
           <Text style={{ color: "blue" }}>dummy@gmail.com</Text>
-          <Text style={{ color: "blue" }}>dummy@gmail.com</Text>
-          <Text style={{ color: "blue" }}>dummy@gmail.com</Text>
+        </View>
+        <View style={{ marginTop: 20, alignItems: "center" }}>
+          <Text>Cordinator Sir Email ID </Text>
+          <Text style={{ color: "blue" }}>pro.kuldeepkumar@gmail.com</Text>
+
         </View>
       </View>
     </SafeAreaView>

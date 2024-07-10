@@ -1,22 +1,21 @@
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 import CustomButton from "../components/CustomButton";
-import Loader from "../components/loader";
+
 import { containerStyle } from "../styles";
 
 const WelcomeImage = require("../../assets/img/welcome3.jpg");
 
 const Welcome = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
+ 
 
   return (
     <>
-      {isLoading === false ? (
         <ImageBackground
           imageStyle={{ opacity: 0.7 }}
           source={WelcomeImage}
-          style={[containerStyle.container, {}]}>
+          style={[containerStyle.container]}>
           <Text
             style={{
               fontSize: 40,
@@ -43,9 +42,6 @@ const Welcome = ({ navigation }) => {
               title={"Get Started"}></CustomButton>
           </View>
         </ImageBackground>
-      ) : (
-        <Loader />
-      )}
     </>
   );
 };

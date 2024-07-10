@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Avatar, Card, IconButton } from "react-native-paper";
+import { Card  } from "react-native-paper";
 import { Image, Text, TouchableOpacity } from "react-native";
 
 import { COLORS } from "../constants/Colors";
